@@ -1,0 +1,135 @@
+@charset "utf-8";
+
+/* --------------------
+        accessories
+   --------------------- */
+.accessories{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.timer{
+    font-size: 1.6rem;
+    padding: 0.5rem;
+}
+#countdown{
+    font-size: 2.4rem;
+}
+
+
+
+/* --------------------
+        player
+   --------------------- */
+
+.player_wrapper{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.player_box{
+    width: 40rem;
+    padding: 0 2rem;
+}
+
+.star_list{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: auto;
+    margin: auto;
+}
+.star_img{
+    max-width: 4rem;
+    height: auto;
+    padding: 0.5rem;
+}
+
+.player_img{
+    width: 16rem;
+    height: 16rem;
+}
+.hand_wrapper{
+    display: flex;
+    width: 40rem;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+.hand_img{
+    width: 70%;
+    height: auto;
+}
+
+/* --------------------
+        deal
+   --------------------- */
+.playing_box{
+    text-align: center;
+}
+.deal_wrapper{
+    display: flex;
+}
+.deal_box{
+    width: 15rem;
+    height: auto;
+    padding: 2rem 3rem;
+}
+img{
+    width: 100%;
+}
+.judgebox{
+    width: 30rem;
+    margin: auto;
+    background-color: black;
+    padding: 1.2rem;
+}
+.judge_comment{
+    font-size: 2rem;
+    line-height: 2.4rem;
+    margin: auto;
+}
+.btn_box{
+    display: flex;
+    justify-content: center;
+}
+.btn{
+    display: block;
+    width: 4rem;
+    height: 4rem;
+}
+.btn_bet{
+    width: 8rem;
+    height: 4rem;
+    background-color: red;
+    color: #ffffff;
+    font-weight: bold;
+}
+.btn_open{  
+    width: 8rem;
+    height: 4rem;
+    background-color: red;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+
+/* --------------------
+        imgbox
+   --------------------- */
+.img_box{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    display: none;
+}
+#insert{
+    max-width: 60rem;
+    max-height: 60rem;
+    width: 60rem;
+    height: auto;
+}
+

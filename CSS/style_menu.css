@@ -1,0 +1,69 @@
+@charset "utf-8";
+
+
+/* --------------------------
+    Common
+   -------------------------- */
+
+html{
+    font-size: 62.5%;
+}
+body{
+    width: 100%;
+    margin: auto;
+    background-image: url(../img/background_table.jpg);
+    color: #ffffff;
+    font-size: 2.4rem;
+    text-align: center;
+}
+.title{
+    font-size: 3rem;
+    font-weight: bold;
+    top: 10%;
+    left: 50%;
+    padding: 1rem;
+    background-color: black;
+}
+.main_visual_img{
+    max-width: 50rem;
+}
+.main_visual_wrapper{
+    position: relative;
+    margin: 1rem 0 ;
+}
+.btn_menu{
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    display: flex;
+    justify-content: space-between;
+    width: 35%;
+}
+.btn{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+    margin: 1rem;
+}
+.btn_list{
+    background-color: #ffffff;
+    border-color: black;
+    border-width: 1rem;
+    padding: 2rem;
+    width: 12rem;
+}
+.welcome{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+footer{
+    background-color: black;
+    padding: 0.3rem;
+}
+small{
+    font-size: 1.2rem;
+}

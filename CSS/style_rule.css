@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+.handlist_rule{
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 30rem;
+}
+.hand_img{
+    width: 15rem;
+    height: auto;
+}
+.rule_box{
+    background-color: black;
+    margin: 2rem 20rem;
+}
+p{
+    padding: 1.5rem 0;
+    text-transform: uppercase;
+}
+ol{
+    padding: 0 0 1rem 8rem;
+}
+.rule_list{
+    font-size: 2rem;
+    list-style: number;
+    line-height: 3.2rem;
+    text-align: left;
+    padding: 0 0 0 2rem;
+}
+.btn{
+    display: block;
+    width: 4rem;
+    height: 4rem;
+}
+.btn_reload{
+    position: absolute;
+    top: 12%;
+    right: 5%;
+}
+.btn_menuback{
+    position: absolute;
+    top: 8%;
+    right: 1%;
+}
