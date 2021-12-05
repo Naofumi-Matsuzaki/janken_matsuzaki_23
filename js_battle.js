@@ -82,20 +82,20 @@ $("#paper_you").on("click", choice_paper); //クリックイベントで呼び�
 
 // 相手の手を選ぶ、相手の手が減る、勝敗がつく、★が移動する、決着を判定する
 function open(){ // 相手の手を選ぶ、減らす、表示する関数
-    if(hand_cpu_r == 0 && hand_cpu_s == 0){  //パーしか残ってない場合、自動でパー
+    if(hand_cpu_r == 0 && hand_cpu_s == 0){  // パーしか残ってない場合、自動でパー
         deal_cpu = 3;
-    } else if(hand_cpu_r == 0 && hand_cpu_p == 0){ //チョキしか残ってない場合、自動でチョキ
+    } else if(hand_cpu_r == 0 && hand_cpu_p == 0){ // チョキしか残ってない場合、自動でチョキ
         deal_cpu = 2;
     } else if(hand_cpu_s == 0 && hand_cpu_p == 0){ //グーしか残ってない場合、自動でグー
-        deal_cpu =1;
-    } else if(hand_cpu_r == 0){
-        deal_cpu = Math.ceil(Math.random()*2) + 1; //グー以外が選択される
-    } else if(hand_cpu_s == 0){
-        deal_cpu = Math.ceil(Math.random()*1)*2 + 1; //チョキ以外が選択される
-    } else if(hand_cpu_p == 0){
-        deal_cpu = Math.ceil(Math.random()*2); //パー以外が選択される
+        deal_cpu = 1;
+    } else if(hand_cpu_r == 0){ // グーのみが0枚の場合
+        deal_cpu = Math.ceil(Math.random()*2) + 1; // グー以外が選択される
+    } else if(hand_cpu_s == 0){ // チョキのみが0枚の場合
+        deal_cpu = Math.ceil(Math.random()*1)*2 + 1; // チョキ以外が選択される
+    } else if(hand_cpu_p == 0){ // パーのみが0枚の場合
+        deal_cpu = Math.ceil(Math.random()*2); // パー以外が選択される
     } else {
-        deal_cpu = Math.ceil(Math.random()*3); //グーチョキバーすべてが1枚以上残っているときは3つランダム
+        deal_cpu = Math.ceil(Math.random()*3); // グーチョキバーすべてが1枚以上残っているときは3つランダム
     }
     console.log("相手の手は"+ deal_cpu);
     switch(deal_cpu){ // switch文でif文よりもスマートに記述
@@ -121,9 +121,9 @@ function open(){ // 相手の手を選ぶ、減らす、表示する関数
     judge = (deal_you - deal_cpu + 3) % 3 // 変数judgeを得る
     console.log("Judge = "+ judge);
 }
-function judgement (){ //勝敗判定の関数を定義
+function judgement (){ // 勝敗判定の関数を定義
     hand_left = hand_cpu_r + hand_cpu_s + hand_cpu_p;
-    if(hand_left >0 && judge == 1){  //負けた場合
+    if(hand_left >0 && judge == 1){  // 負けた場合
         document.getElementById("judge_comment").textContent = "ざまみろっ…！";
         document.getElementById("judge_comment2").textContent = "続けるなら[BET]を押せっ…！";
         star_you -= bet;
@@ -132,10 +132,10 @@ function judgement (){ //勝敗判定の関数を定義
         console.log("相手の★は"+ star_cpu);
         document.getElementById("star_you").textContent = `× ${star_you}`;
         document.getElementById("star_cpu").textContent = `× ${star_cpu}`;
-        if(star_you > 0){
-            popupImg_lose(); //負けのポップアップ表示
+        if(star_you > 0){ // このif文によって、「決着」イベントと「勝敗」イベントとの競合を排除（当初ぐちゃぐちゃだった…）
+            popupImg_lose(); // 負けのポップアップ表示
         }
-    } else if(hand_left >0 && judge == 2){ //勝った場合
+    } else if(hand_left >0 && judge == 2){ // 勝った場合
         document.getElementById("judge_comment").textContent = "やりおるっ…！";
         document.getElementById("judge_comment2").textContent = "続けるなら[BET]を押せっ…！";
         star_you += bet;
@@ -144,10 +144,10 @@ function judgement (){ //勝敗判定の関数を定義
         console.log("相手の★は"+ star_cpu);
         document.getElementById("star_you").textContent = `× ${star_you}`;
         document.getElementById("star_cpu").textContent = `× ${star_cpu}`;
-        if(star_cpu > 0){
-            popupImg_win(); //勝ちのポップアップ表示
+        if(star_cpu > 0){ // このif文によって、「決着」イベントと「勝敗」イベントとの競合を排除（当初ぐちゃぐちゃだった…）
+            popupImg_win(); // 勝ちのポップアップ表示
         }
-    } else if(hand_left >0 && judge == 0){  //あいこの場合
+    } else if(hand_left >0 && judge == 0){  // あいこの場合
         document.getElementById("judge_comment").textContent = "命拾いしたなっ…！";
         document.getElementById("judge_comment2").textContent = "続けるなら[BET]を押せっ…！";
         console.log("自分の★は"+ star_you);
@@ -156,25 +156,25 @@ function judgement (){ //勝敗判定の関数を定義
 }
 function conclusion(){ // 決着を宣言する関数を定義
     hand_left = hand_cpu_r + hand_cpu_s + hand_cpu_p;
-    if(star_you <= 0){
+    if(star_you <= 0){ // プレイヤーの★が尽きた場合
         document.getElementById("judge_comment").textContent = "貴様の負けだっ・・・！";
         document.getElementById("judge_comment2").textContent = "這えっ・・・！";
         document.getElementById("insert").src = "./img/insert/concl_lose.jpg";
         $("#insert_box").show(8000);
         window.alert("あなたは負けました。")
-    } else if(star_cpu <= 0){
+    } else if(star_cpu <= 0){ // 相手の★が尽きた場合
         document.getElementById("judge_comment").textContent = "ヒィィ・・・！";
         document.getElementById("judge_comment2").textContent = "儂が負けるとは・・・";
         document.getElementById("insert").src = "./img/insert/concl_win_3.jpg";
         $("#insert_box").show(8000);
         window.alert("あなたは勝ちました。")
-    } else if(hand_left == 0 && star_you < star_cpu){
+    } else if(hand_left == 0 && star_you < star_cpu){ // 手札が尽きた場合：プレイヤーの負け
         document.getElementById("judge_comment").textContent = "貴様の負けだっ・・・！";
         document.getElementById("judge_comment2").textContent = "這えっ・・・！";
         document.getElementById("insert").src = "./img/insert/concl_lose.jpg";
         $("#insert_box").show(8000);
         window.alert("あなたは負けました。")
-    } else if(hand_left == 0 && star_cpu <= star_you){
+    } else if(hand_left == 0 && star_cpu <= star_you){ // 手札が尽きた場合：プレイヤーの勝ち
         document.getElementById("judge_comment").textContent = "ヒィィ・・・！";
         document.getElementById("judge_comment2").textContent = "儂が負けるとは・・・";
         document.getElementById("insert").src = "./img/insert/concl_win_3.jpg";
@@ -183,10 +183,10 @@ function conclusion(){ // 決着を宣言する関数を定義
     }
 }
 
-function judgeEvent(){ // 関数を組み合わせて一連の流れを作る
+function judgeEvent(){ // 関数を組み合わせて、オープンから勝敗判定、決着までの一連の流れを作る
     open();
     judgement();
-    setTimeout(conclusion, 1500); //各ジャンケンのjudgementを示した後に、決着判定
+    setTimeout(conclusion, 1500); // 決着判定は一瞬の間を溜めることで風情を演出
 }
 $("#open").on("click", judgeEvent); //クリックイベントで一連の関数を呼び出す
 
@@ -201,7 +201,7 @@ function recalc(){
         let lifespan_left = `${min}分${sec}秒`;
         document.getElementById("countdown").textContent = lifespan_left;
         refresh(); // refresh関数を実行
-    } else {
+    } else { // 残り時間がなくなった場合
         document.getElementById("countdown").textContent = "0...";
         window.alert("時間切れ。あなたは負けました。");
         document.getElementById("insert").src = "./img/insert/concl_lose.jpg";
@@ -217,7 +217,9 @@ recalc(); // 関数の実行（画面読込時に発動）
 
 
 // 画像ポップアップの実装
-// 画像データ配列を定義、画像入替関数を定義、画像表示＆非表示関数を定義、ポップアップ関数を定義
+// => 画像データ配列を定義、画像入替関数を定義、画像表示＆非表示関数を定義、ポップアップ関数を定義
+
+// 画像データ配列を定義
 const imgData_bet = ["./img/insert/bet_0.jpg","./img/insert/bet_1.jpg","./img/insert/bet_2.jpg","./img/insert/bet_3.jpg","./img/insert/bet_4.jpg","./img/insert/bet_5.jpg"];
 const imgData_lose = ["./img/insert/judge_lose_0.jpg","./img/insert/judge_lose_1.jpg","./img/insert/judge_lose_2.jpg","./img/insert/judge_lose_3.jpg","./img/insert/judge_lose_4.jpg","./img/insert/judge_lose_5.jpg","./img/insert/judge_lose_6.jpg","./img/insert/judge_lose_7.jpg","./img/insert/judge_lose_8.jpg","./img/insert/judge_lose_9.jpg","./img/insert/judge_lose_10.jpg","./img/insert/judge_lose_11.jpg"];
 const imgData_win = ["./img/insert/judge_win_0.jpg","./img/insert/judge_win_1.jpg","./img/insert/judge_win_2.jpg","./img/insert/judge_win_3.jpg"];
