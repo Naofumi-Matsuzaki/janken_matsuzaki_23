@@ -61,6 +61,7 @@
 .hand_img{
     width: 70%;
     height: auto;
+    cursor: pointer;
 }
 
 /* --------------------
@@ -99,6 +100,7 @@ img{
     display: block;
     width: 4rem;
     height: 4rem;
+    cursor: pointer;
 }
 .btn_bet{
     width: 8rem;

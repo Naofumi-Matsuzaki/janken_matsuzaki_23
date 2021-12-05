@@ -15,6 +15,18 @@ let hand_left = hand_cpu_r + hand_cpu_s + hand_cpu_p; //残りの手札枚数合
 let deal_you;  //プレイヤーの選んだ手（1:グー,2:チョキ,3:パー）
 let deal_cpu;  //CPUの選んだ手（1:グー,2:チョキ,3:パー）
 let judge = (deal_you - deal_cpu + 3) % 3;  //勝敗判定用の変数
+let concl; // 決着の結果（勝ち or 負け）を保存する変数
+let debt = 1000; // 最初の借金
+const now = new Date();
+const year = now.getFullYear();
+const month = now.getMonth() + 1;
+const date = now.getDate();
+const hour = now.getHours();
+const min = now.getMinutes();
+const dateNtime = `${year}/${month}/${date} ${hour}:${min}`; // ページを読み込んだ日時を取得
+let obj = {'concl':concl, 'debt':debt}; // 後で使う用にオブジェクト形式で変数を設定??
+console.log(obj);
+
 
 // 賭け金を宣言する
 function declare(){ //掛け金を宣言する関数を定義
@@ -162,26 +174,47 @@ function conclusion(){ // 決着を宣言する関数を定義
         document.getElementById("insert").src = "./img/insert/concl_lose.jpg";
         $("#insert_box").show(8000);
         window.alert("あなたは負けました。")
+        concl = '負け';
+        debt += (5 - star_you)*100; // ★1つにつき100万円
+        localStorage.setItem(dateNtime, concl);
+        // localStorage.setItem(dateNtime, JSON.stringify(obj));
+        console.log(debt);
     } else if(star_cpu <= 0){ // 相手の★が尽きた場合
         document.getElementById("judge_comment").textContent = "ヒィィ・・・！";
         document.getElementById("judge_comment2").textContent = "儂が負けるとは・・・";
         document.getElementById("insert").src = "./img/insert/concl_win_3.jpg";
         $("#insert_box").show(8000);
         window.alert("あなたは勝ちました。")
+        concl = '勝ち';
+        debt += (5 - star_you)*100; // ★1つにつき100万円
+        localStorage.setItem(dateNtime, concl);
+        // localStorage.setItem(dateNtime, JSON.stringify(obj));
+        console.log(debt);
     } else if(hand_left == 0 && star_you < star_cpu){ // 手札が尽きた場合：プレイヤーの負け
         document.getElementById("judge_comment").textContent = "貴様の負けだっ・・・！";
         document.getElementById("judge_comment2").textContent = "這えっ・・・！";
         document.getElementById("insert").src = "./img/insert/concl_lose.jpg";
         $("#insert_box").show(8000);
         window.alert("あなたは負けました。")
+        concl = '負け';
+        debt += (5 - star_you)*100; // ★1つにつき100万円
+        localStorage.setItem(dateNtime, concl);
+        // localStorage.setItem(dateNtime, JSON.stringify(obj));   
+        console.log(debt);
     } else if(hand_left == 0 && star_cpu <= star_you){ // 手札が尽きた場合：プレイヤーの勝ち
         document.getElementById("judge_comment").textContent = "ヒィィ・・・！";
         document.getElementById("judge_comment2").textContent = "儂が負けるとは・・・";
         document.getElementById("insert").src = "./img/insert/concl_win_3.jpg";
         $("#insert_box").show(8000);
         window.alert("あなたは勝ちました。")
+        concl = '勝ち';
+        debt += (5 - star_you)*100; // ★1つにつき100万円
+        localStorage.setItem(dateNtime, concl);
+        // localStorage.setItem(dateNtime, JSON.stringify(obj));
+        console.log(debt);
     }
 }
+
 
 function judgeEvent(){ // 関数を組み合わせて、オープンから勝敗判定、決着までの一連の流れを作る
     open();
@@ -189,7 +222,6 @@ function judgeEvent(){ // 関数を組み合わせて、オープンから勝敗
     setTimeout(conclusion, 1500); // 決着判定は一瞬の間を溜めることで風情を演出
 }
 $("#open").on("click", judgeEvent); //クリックイベントで一連の関数を呼び出す
-
 
 // タイマーの実装
 let lifespan = 91; // タイマーの時間設定変数（秒）
@@ -206,6 +238,11 @@ function recalc(){
         window.alert("時間切れ。あなたは負けました。");
         document.getElementById("insert").src = "./img/insert/concl_lose.jpg";
         $("#insert_box").show(6000);
+        concl = '負け';
+        debt += (5 - star_you)*100; // ★1つにつき100万円
+        localStorage.setItem(dateNtime, concl);
+        // localStorage.setItem(dateNtime, JSON.stringify(obj));
+        console.log(debt);
     }
 }
 function refresh(){ // 1秒後にrecalc関数を実行
